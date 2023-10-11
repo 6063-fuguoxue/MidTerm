@@ -10,14 +10,16 @@ The cover will include the biological characteristics of the cats, such as their
 
 I designed the cover to be both interactive and time-based. Some possible plans are listed below: 
 <ol>
+  <li>Cat's eyes are drawn at the center of the magazine cover. When clicking on the digital magazine cover, a paw appears at the clicking position as if a cat responds to the click. The cat's eyes can also follow the mouse's movement (which happens to be a witty metaphor). </li>
   <li>The background color can change according to the current time of the day. The shape of cats' pupils can change according to the background color. For example, the darker the background is, the more rounded the cat's pupils are. </li>
-  <li>Cat's eyes are drawn at the center of the magazine cover. When clicking on the digital magazine cover, a paw appears at the clicking position as if a cat responds to the click. The cat's eyes can also follow the mouse's movement (which happens to be a witty metaphor). </li>  
   <li>The background can be filled with different patterns of different cat furs. It changes after every click on the background. </li>
 </ol>
 
-Users can switch among the three plans by pressing the left arrow and righ arrow on their keyboard. 
+Users can switch among the three plans by pressing the left arrow and right arrow on their keyboard. 
 
-To keep the branding of National Geographic, I decide to keep the yellow frame for every plan. The hexadecimal color code of National Geographic Yellow is `#ffce00`. 
+To keep the branding of National Geographic, I decided to keep the yellow frame for every plan. The hexadecimal color code of National Geographic Yellow is `#ffce00`. 
+
+From the perspective of interactivity, my project is related to our week 04 readings about interactivity. The interactivity levels of the three plans listed above are different, but I think they are all interactive because they engage people in a conversation about the magazine's content. While I may not do data visualization on my magazine cover, I do want to learn from W.E.B Du Bois's color choices and layouts and see if I can integrate them into my work. 
 
 ### Sketches
 Below are some sketches of the cover: 
