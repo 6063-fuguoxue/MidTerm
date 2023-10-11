@@ -1,7 +1,7 @@
 # Midterm Notes
 ## Milestone 1: Project Proposal
 ### Magazine: The Secret Life of Cats by National Geographic
-I recently bought a magazine named "The Secret Life of Cats". It is a reissue of a national geographic favorite, which contains many beautiful photos of cats and stories about the human-cat bond. The "cats" in this magazine refer not only to commonly seen domestic cats, but to the whole Felidae family including tigers, panthers, and so on. Since I love cats, and there are many classic and understandable symbolic languages in human culture that refer to felines, I decided to design a cover for this magazine. 
+I recently bought a magazine named "The Secret Life of Cats". It is a reissue of a national geographic favorite, which contains many beautiful photos of cats and interesting stories. It consists of three chapters: "Cats Then and Now", "The Human-Cat Bond", and "Cats in Our History". "Cats" in this magazine refer not only to domestic cats, but the whole Felidae family including tigers, panthers, and so on. Since I love cats, and there are many classic and understandable symbolic languages in human culture that refer to felines, I decided to design a cover for this magazine. 
 
 <img src="./original-cover.jpg" alt="Original Magazine Cover" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
 
