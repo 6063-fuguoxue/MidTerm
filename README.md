@@ -11,8 +11,8 @@ The cover will include the biological characteristics of the cats, such as their
 I designed the cover to be both interactive and time-based. Some ideas I want to experiment with are listed below: 
 <ol>
   <li>The background color can change according to the current time of the day. </li>
-  <li>When clicking on the digital magazine cover, a paw appears at the clicking position as if a cat responds to the click. </li>
-  <li>The shape of cats' pupils can change according to the current time of the day. </li>
+  <li>The shape of cats' pupils can change according to the background color. For example, the darker the background is, the more rounded the cat's pupils are. </li>
+  <li>When clicking on the digital magazine cover, a paw appears at the clicking position as if a cat responds to the click. </li>  
   <li>A cat's eyes can follow the mouse's movement (this happens to be a witty metaphor). </li>
   <li>The background can be filled with different patterns of different cat furs. It changes after every click on the background. </li>
 </ol>
@@ -25,5 +25,11 @@ Below are some sketches of the cover:
     <td><img src="./sketch2.jpg" alt="sketch2"></td>
     <td><img src="./sketch3.jpg" alt="sketch3"></td>
     <td><img src="./sketch4.jpg" alt="sketch4"></td>
+  </tr>
+  <tr>
+    <td>Sketch 1: Mouse interaction with the cover. </td>
+    <td>Sketch 2: Cat eyes with different sizes of pupils. </td>
+    <td>Sketch 3: Tiger Patter. </td>
+    <td>Sketch 4: Amur Leopard Pattern. </td>
   </tr>
 </table>
