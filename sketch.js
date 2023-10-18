@@ -4,6 +4,24 @@ let coverIndex = 0;
 let numCovers = 3; 
 let img;
 
+// TODO: Pupil movement for Cover 1
+// class Pupil() { 
+//   constructor() {
+
+//   }
+//   draw() {
+
+//   }
+// }
+
+// TODO: objects of patterns for Cover 2
+// let tigerPattern = {
+//   pColor: 0,
+//   x: 0,
+//   y: 0
+// }
+
+
 function preload() {
   img = loadImage('./mouse.jpg');
 }
