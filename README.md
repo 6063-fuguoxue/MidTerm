@@ -62,7 +62,9 @@ Below is a screenshot of Cover 0.
 ### Cover 1
 Cover 1 will have a cat responding to the mouse movement and mouse clicks. The cat's eyes will follow the mouse's movement, and a cat paw will appear where the mouse click happens. So far, I have created a mouse image and let it move with the digital mouse on canvas. The image is loaded in the 'preload()' function. 
 
-For the next step, I will draw a cat on the canvas and animate its eyes. It will be a simple animation: for example, if the mouse is left to the cat, its eyes will animate towards the left within a certain range. When a mouse click event happens, `mouseClicked()` check if the current `coverIndex` is 1; if so, draw a paw at the clicked position. There can be a global counter so that we can let the paw image remain on canvas for a few seconds. 
+For the next step, I will draw a cat on the canvas and animate its pupils. For example, if the mouse is left to the cat, its eyes will animate towards the left within a certain range. Since the pupils have a moving function, I will need a `class Pupil()`. The class will first define the properties of the pupil shape, which can also be time-dependent like in Cover 0. Then, the class will also have the `draw()` function, which will handle the position changes of a pupil. 
+
+Another thing I will implement is the mouse-clicking event. When the mouse is clicked, `mouseClicked()` checks if the current `coverIndex` is 1; if so, draw a paw at the clicked position. There can be a global counter so that we can let the paw image remain on canvas for a few seconds or frames. 
 
 Below is a screenshot of the Cover 1 (to be continued).
 ![Cover 1](./cover1.png)
@@ -70,4 +72,4 @@ Below is a screenshot of the Cover 1 (to be continued).
 ### Cover 2
 Cover 2 shows different cat fur patterns with a mouse click. This is an easy interaction: I just need the function `mouseClicked()`, and check if the current `coverIndex` is 2; if so, go to the next cat fur pattern in the pattern series. 
 
-The difficult part may be pattern production: it can be static or animated, but some patterns may be hard to code. However, for non-overlapping shapes on canvas, maybe I can refer to HW03B. 
+Pattern production may be difficult because I will need to code the patterns out. However, I can refer to HW03B if there is a need for randomly distributed non-overlapping shapes. Since there will be many objects with the same set of properties for every pattern (e.g. All stripes on the tiger’s fur have the same set of properties like position, color, length, etc.), I will create an object for each pattern. For example, a `tigerPattern` object will be created for painting the tiger pattern. 
