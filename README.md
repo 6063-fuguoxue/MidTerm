@@ -42,6 +42,11 @@ This week, I started to code the interactive magazine covers. There will be 3 di
 
 So far, I have finished Cover 0 and started Cover 1. My detailed progress is below. 
 
+### Functions
+Since there are 3 different covers, I put each of them in a function so that `draw()` can select one to draw based on the current `coverIndex` value. The 3 functions are `drawCover0()`, `drawCover1()`, and `drawCover2()`. 
+
+The changing of cover is handled by the function `keyPressed()`. If the left arrow key is pressed, the cover will change to the previous one, or the last one if the current one is already the first one in the covers. Pressing on the right arrow key will do the opposite. 
+
 ### Cover 0
 Cover 0 shows a pair of cat eyes changing with time. Since it is based on time, I adapted the color rules in HW04A (a mechanism that keeps track of time) to this cover. 
 
