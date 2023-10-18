@@ -55,7 +55,10 @@ Below is a screenshot of Cover 0.
 ![Cover 0](./cover0.png)
 
 ### Cover 1
+Cover 1 will have a cat responding to the mouse movement and mouse clicks. The cat's eyes will follow the mouse's movement, and a cat paw will appear where the mouse click happens. So far, I have created a mouse image and let it move with the digital mouse on canvas. Next, I will draw a cat on the canvas and animate its eyes. It will be a simple animation: for example, if the mouse is left to the cat, its eyes will animate towards the left within a certain range. When a mouse click event happens, `mouseClicked()` check if the current `coverIndex` is 1; if so, draw a paw at the clicked position. There can be a global counter so that we can let the paw image remain on canvas for a few seconds. 
 
+Below is a screenshot of the Cover 1 (to be continued).
+![Cover 1](./cover1.png)
 
 ### Cover 2
 Cover 2 shows different cat fur patterns with a mouse click. This is an easy interaction: I just need the function `mouseClicked()`, and check if the current `coverIndex` is 2; if so, go to the next cat fur pattern in the pattern series. 
