@@ -13,6 +13,13 @@ function setup() {
   img.resize(100,100);
 }
 
+function drawBoundary() {
+  // Draw the yellow boundary
+  strokeWeight(80);
+  stroke(255, 206, 0);
+  noFill();
+  rect(0, 0, windowWidth, windowHeight);
+}
 // Cover 0: Cat's eyes changing with time
 function drawCover0() {
   h = hour();
@@ -30,6 +37,9 @@ function drawCover0() {
     BGcolor = map(colorR, 0, 255, 0, 510);
   }
   background(BGcolor);
+
+  // Draw the yellow boundary
+  drawBoundary();
 
   // Pupil width change based on hour
   let pupilWidthFactor;
@@ -58,13 +68,21 @@ function drawCover0() {
   // Draw pupils
   fill(colorR,colorG,colorB, 255);
   ellipse(windowWidth/5, 0, (2 - sqrt(2))*r*pupilWidthFactor, (2 - sqrt(2))*r);
-  ellipse(-windowWidth/5, 0, (2 - sqrt(2))*r*pupilWidthFactor, (2 - sqrt(2))*r);
+  ellipse(-windowWidth/5, 0, (2 - sqrt(2))*r*pupilWidthFactor, (2 - sqrt(2))*r); 
 }
 
 // Cover 1: Cat's eyes moving with the mouse
 function drawCover1() {
   background(255);
+  // Draw the yellow boundary
+  drawBoundary();
   image(img, mouseX, mouseY);
+}
+
+function drawCover2() {
+  background(255);
+  // Draw the yellow boundary
+  drawBoundary();
 }
 
 function draw() {
@@ -74,7 +92,7 @@ function draw() {
   else if (coverIndex == 1){
     drawCover1();
   } else if (coverIndex == 2) {
-    background(255);
+    drawCover2();
   }
 
 }
