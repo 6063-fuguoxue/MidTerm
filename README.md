@@ -36,3 +36,28 @@ Below are some sketches of the cover:
     <td colspan="2">Plan 3: Background patterns representing different felines. </td>
   </tr>
 </table>
+
+## MileStone 2: Progress Update
+This week, I started to code the interactive magazine covers. There will be 3 different covers in total: Cover 0 with cat eyes changing with time, Cover 1 with a cat responding to the mouse, and Cover 2 shows different cat fur patterns with a mouse click. Users can go to the previous/next cover by pressing the left/right arrow button. 
+
+So far, I have finished Cover 0 and started Cover 1. My detailed progress is below. 
+
+### Cover 0
+Cover 0 shows a pair of cat eyes changing with time. Since it is based on time, I adapted the color rules in HW04A (a mechanism that keeps track of time) to this cover. 
+
+As for the eyes, each eye consists of two arcs and one ellipse. The angles of the arcs are all PI/2 radius because it facilitates the calculations of eye position and pupil height (ellipse height). The pupil height is always the same as the largest distance between two arcs, but its width changes with time: the ellipse becomes a circle when the current hour is 0 or 23, and 20% of its height when the current hour is 11 or 12. This matches with cats' behavior: their pupils are nearly circles when the environment is dark (at night), which become sharp and thin ellipses when the environment is bright (at day). 
+
+Below is my sketch for eye and pupil position calculation. 
+
+![Eye and pupil position calculation](./eye-pupil-calculation.jpg)
+
+Below is a screenshot of Cover 0.
+![Cover 0](./cover0.png)
+
+### Cover 1
+
+
+### Cover 2
+Cover 2 shows different cat fur patterns with a mouse click. This is an easy interaction: I just need the function `mouseClicked()`, and check if the current `coverIndex` is 2; if so, go to the next cat fur pattern in the pattern series. 
+
+The difficult part may be pattern production: it can be static or animated, but some patterns may be hard to code. However, for non-overlapping shapes on canvas, maybe I can refer to HW03B. 
