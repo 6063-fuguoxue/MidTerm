@@ -2,17 +2,31 @@ let colorR = 255, colorG = 255, colorB = 255;
 let BGcolor = 0;
 let coverIndex = 0;
 let numCovers = 3; 
-let img;
 
-// TODO: Pupil movement for Cover 1
-// class Pupil() { 
-//   constructor() {
+// Variables for cover 1
+let imgMouse;
+let r1; // radius of cat eyes
+let pupilLX, pupilRX, pupilY, pupilD, pupilLX0, pupilRX0, pupilY0;
+let drawPaw = false;
+let pawTimer;
+let pawX, pawY;
+let paw;
+let paws=[];
 
-//   }
-//   draw() {
-
-//   }
-// }
+class Paw {
+  constructor(_img, _x, _y) {
+    this.img = _img; 
+    this.x = _x;
+    this.y = _y;
+    this.timer = 0;
+  }
+  update() {
+    this.timer += 1;
+  }
+  draw() {
+    image(this.img, this.x, this.y);
+  }
+}
 
 // TODO: objects of patterns for Cover 2
 // let tigerPattern = {
@@ -23,12 +37,102 @@ let img;
 
 
 function preload() {
-  img = loadImage('./mouse.jpg');
+  imgMouse = loadImage('./mouse.jpg');
+  imgPaw = loadImage('./paw.png');
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  img.resize(100,100);
+  imgMouse.resize(windowHeight/8,windowHeight/8);
+  imgPaw.resize(windowHeight/10,windowHeight/10);
+
+  // Set up variable for cover 1
+  r1 = windowWidth/40;
+  pupilD = (2 - sqrt(2))*r1;
+  pupilRX0 = r1;
+  pupilRX = pupilRX0;
+  pupilLX0 = -r1;
+  pupilLX = pupilLX0;
+  pupilY0 = 0;
+  pupilY = pupilY0;
+}
+
+// class Pupil {
+//   constructor(_x, _x0, _y, _r) {
+//     this.x = _x;
+//     this.x0 = _x0; 
+//     this.y = _y;
+//     this.r = _r;
+//   }
+//   update() {
+//     if ((mouseX > this.x) && ((this.x0 + this.r/2) > this.x)) {
+//       this.x += eyeVelocity;
+//     }
+//     if ((mouseX < this.x) && ((this.x0 - this.r/2) < this.x)) {
+//       this.x -= eyeVelocity;
+//     }
+//   }
+//   draw() {
+//     ellipse(this.x, this.y, this.r);
+//   }
+// }
+
+function drawPupils() {
+  // Update the pupils' x-positions
+  pupilRX = map(mouseX, 0, windowWidth, pupilRX0-pupilD/2, pupilRX0+pupilD/2);
+  pupilLX = map(mouseX, 0, windowWidth, pupilLX0-pupilD/2, pupilLX0+pupilD/2);
+  
+  // Update the pupils' y-positions
+  pupilY = map(mouseY, 0, windowHeight, pupilY0-pupilD/2, pupilY0+pupilD/2);
+
+  ellipse(pupilRX, pupilY, pupilD);
+  ellipse(pupilLX, pupilY, pupilD);
+}
+
+function catFace(r) {
+  let noseH = r*0.6;
+  let earH1 = 1.3*r;
+  let earH2 = 2.3*r;
+  let earH3 = r;
+
+  // Draw eye boundaries
+  strokeWeight(3);
+  stroke(0);
+  // noFill();
+  // arc(r, -sqrt(2)/2*r, 2*r, 2*r, PI/4, PI/4*3, OPEN);
+  // arc(r, sqrt(2)/2*r, 2*r, 2*r, PI/4*5, PI/4*7, OPEN);
+  // arc(-r, -sqrt(2)/2*r, 2*r, 2*r, PI/4, PI/4*3, OPEN);
+  // arc(-r, sqrt(2)/2*r, 2*r, 2*r, PI/4*5, PI/4*7, OPEN);
+  // Draw pupils
+  fill(0);
+  drawPupils();
+
+  // Draw nose
+  fill('pink');
+  stroke('pink');
+  ellipse(0, noseH, noseH, noseH/3);
+
+  // Draw ears
+  fill(0);
+  stroke(0);
+  line(0.8*r, -earH1, 1.5*r, -earH2);
+  line(1.5*r, -earH2, (sqrt(2)/2 + 1.2)*r, -earH3);
+
+  line(-0.8*r, -earH1, -1.5*r, -earH2);
+  line(-1.5*r, -earH2, -(sqrt(2)/2 + 1.2)*r, -earH3);
+
+
+  // Draw beards
+  noFill();
+  stroke(0);
+  bezier((sqrt(2)/2 + 1.2)*r, 0.5*noseH, (sqrt(2)/2 + 2)*r, 0, (sqrt(2)/2 + 2.8)*r, noseH*0.6, (sqrt(2)/2 + 3)*r, noseH*1);
+  bezier(-(sqrt(2)/2 + 1.2)*r, 0.5*noseH, -(sqrt(2)/2 + 2)*r, 0, -(sqrt(2)/2 + 2.8)*r, noseH*0.6, -(sqrt(2)/2 + 3)*r, noseH*1);
+
+  bezier((sqrt(2)/2 + 1.3)*r, noseH*0.9, (sqrt(2)/2 + 2)*r, 0.6*noseH, (sqrt(2)/2 + 2.8)*r, noseH*1.2, (sqrt(2)/2 + 3.2)*r, noseH*2);
+  bezier(-(sqrt(2)/2 + 1.3)*r, noseH*0.9, -(sqrt(2)/2 + 2)*r, 0.6*noseH, -(sqrt(2)/2 + 2.8)*r, noseH*1.2, -(sqrt(2)/2 + 3.2)*r, noseH*2);
+
+  bezier((sqrt(2)/2 + 1.2)*r, noseH*1.3, (sqrt(2)/2 + 2)*r, 1.2*noseH, (sqrt(2)/2 + 2.5)*r, noseH*1.8, (sqrt(2)/2 + 3)*r, noseH*3);
+  bezier(-(sqrt(2)/2 + 1.2)*r, noseH*1.3, -(sqrt(2)/2 + 2)*r, 1.2*noseH, -(sqrt(2)/2 + 2.5)*r, noseH*1.8, -(sqrt(2)/2 + 3)*r, noseH*3);
 }
 
 function drawBoundary() {
@@ -78,23 +182,41 @@ function drawCover0() {
   let r = windowWidth/5;
 
   // Draw eye boundaries
-  arc(windowWidth/5, -sqrt(2)/2*r, 2*r, 2*r, PI/4, PI/4*3, OPEN);
-  arc(windowWidth/5, sqrt(2)/2*r, 2*r, 2*r, PI/4*5, PI/4*7, OPEN);
-  arc(-windowWidth/5, -sqrt(2)/2*r, 2*r, 2*r, PI/4, PI/4*3, OPEN);
-  arc(-windowWidth/5, sqrt(2)/2*r, 2*r, 2*r, PI/4*5, PI/4*7, OPEN);
+  arc(r, -sqrt(2)/2*r, 2*r, 2*r, PI/4, PI/4*3, OPEN);
+  arc(r, sqrt(2)/2*r, 2*r, 2*r, PI/4*5, PI/4*7, OPEN);
+  arc(-r, -sqrt(2)/2*r, 2*r, 2*r, PI/4, PI/4*3, OPEN);
+  arc(-r, sqrt(2)/2*r, 2*r, 2*r, PI/4*5, PI/4*7, OPEN);
 
   // Draw pupils
   fill(colorR,colorG,colorB, 255);
-  ellipse(windowWidth/5, 0, (2 - sqrt(2))*r*pupilWidthFactor, (2 - sqrt(2))*r);
-  ellipse(-windowWidth/5, 0, (2 - sqrt(2))*r*pupilWidthFactor, (2 - sqrt(2))*r); 
+  ellipse(r, 0, (2 - sqrt(2))*r*pupilWidthFactor, (2 - sqrt(2))*r);
+  ellipse(-r, 0, (2 - sqrt(2))*r*pupilWidthFactor, (2 - sqrt(2))*r); 
 }
 
 // Cover 1: Cat's eyes moving with the mouse
 function drawCover1() {
   background(255);
+  
+  imageMode(CENTER);
+  image(imgMouse, mouseX, mouseY);
   // Draw the yellow boundary
   drawBoundary();
-  image(img, mouseX, mouseY);
+
+  // Draw cat face
+  push();
+  translate(windowWidth/2, windowHeight/2);
+  catFace(r1);
+  pop();
+
+  // Draw a paw upon mouse click
+  if (paws.length != 0) {
+    for (let i=0; i<paws.length; i++) {
+      if (paws[i].timer < 100) {
+        paws[i].draw();
+      }
+      paws[i].update();
+    }
+  }  
 }
 
 function drawCover2() {
@@ -134,4 +256,19 @@ function keyPressed() {
     }   
   }
   print(coverIndex);
+}
+
+function mouseClicked() {
+  if (coverIndex == 0) {
+    // Do nothing
+  }
+  else if (coverIndex == 1){
+    // Draw paw
+    pawX = mouseX;
+    pawY = mouseY;
+    paw = new Paw(imgPaw, pawX, pawY);
+    paws.push(paw);
+  } else if (coverIndex == 2) {
+    // Change pattern
+  }
 }
