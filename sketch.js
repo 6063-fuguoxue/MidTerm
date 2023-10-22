@@ -57,26 +57,6 @@ function setup() {
   pupilY = pupilY0;
 }
 
-// class Pupil {
-//   constructor(_x, _x0, _y, _r) {
-//     this.x = _x;
-//     this.x0 = _x0; 
-//     this.y = _y;
-//     this.r = _r;
-//   }
-//   update() {
-//     if ((mouseX > this.x) && ((this.x0 + this.r/2) > this.x)) {
-//       this.x += eyeVelocity;
-//     }
-//     if ((mouseX < this.x) && ((this.x0 - this.r/2) < this.x)) {
-//       this.x -= eyeVelocity;
-//     }
-//   }
-//   draw() {
-//     ellipse(this.x, this.y, this.r);
-//   }
-// }
-
 function drawPupils() {
   // Update the pupils' x-positions
   pupilRX = map(mouseX, 0, windowWidth, pupilRX0-pupilD/2, pupilRX0+pupilD/2);
@@ -263,7 +243,7 @@ function mouseClicked() {
     // Do nothing
   }
   else if (coverIndex == 1){
-    // Draw paw
+    // Push a paw to the paws[] list
     pawX = mouseX;
     pawY = mouseY;
     paw = new Paw(imgPaw, pawX, pawY);
