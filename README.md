@@ -73,3 +73,33 @@ Below is a screenshot of the Cover 1 (to be continued).
 Cover 2 shows different cat fur patterns with a mouse click. This is an easy interaction: I just need the function `mouseClicked()`, and check if the current `coverIndex` is 2; if so, go to the next cat fur pattern in the pattern series. 
 
 Pattern production may be difficult because I will need to code the patterns out. However, I can refer to HW03B if there is a need for randomly distributed non-overlapping shapes. Since there will be many objects with the same set of properties for every pattern (e.g. All stripes on the tiger’s fur have the same set of properties like position, color, length, etc.), I will create an object for each pattern. For example, a `tigerPattern` object will be created for painting the tiger pattern. 
+
+## Milestone 3: Project Finished
+This week, I finished the midterm project. Below is a summary of my project. 
+
+### Function: Cover Switching
+As updated in Milestone 2, the viewer can switch between 3 cover themes I created. This is achieved by `function keyPressed()`. 
+
+### Cover 0: Cat Clock
+Cover 0 remains the same as updated in Milestone 2. There is no interactive element. However, the pupil shape, the background color, and the eye colors change along with time. 
+
+The code for cover 0 is in `function drawCover0()`. 
+
+### Cover 1: Interactive Digital Cat
+Cover 1 is a cat that interacts with the viewer's mouse. The cat's pupils follow the mouse movement; if click the mouse, the cat will try to "catch" the mouse with its paw. 
+
+I broke down the interactions into several parts with explanations below.
+
+#### Part 1: Cat face drawing
+Drawing a cat's face is more difficult than just drawing geometric shapes because everything should be positioned and proportioned to look harmonious and recognizable as a cat face. Therefore, I defined the `r1` variable in `setup()` as `windowWidth/20`, which is the distance between the canvas center and the initial center of a cat pupil. Almost all the variables of Cover 1 are related to r1, which allows easy management of shape positions and sizes. 
+
+Then, `r1` is passed to `function catFace(r)`. This function draws everything on the cat face: pupils, nose, ears, and beards. Pupils drawing will be explained in the next subsection. Nose and ears drawing are relatively easy because they are formed by basic shapes. 
+
+However, drawing beards took me a long time to finish. I referred to [this tutorial](https://p5js.org/learn/curves.html) to draw curved lines. Initially, I decided not to use `arc` because cat beards are not exactly in arc shapes. Then, I chose to use `curve()` for beards but soon found it not intuitive enough for me to control. Finally, I chose `bezier()`, which provides the most intuitive curve control among the three. As mentioned previously, the position and curve control of every bezier curve are related to `r1`. 
+
+#### Function 1: Pupil movement
+
+#### Function 2: Show a paw at the clicking position
+
+### Cover 2: Feline Fur Patterns
+
