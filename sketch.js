@@ -28,17 +28,10 @@ class Paw {
   }
 }
 
-// TODO: objects of patterns for Cover 2
-// let tigerPattern = {
-//   pColor: 0,
-//   x: 0,
-//   y: 0
-// }
-
-
 function preload() {
-  imgMouse = loadImage('./mouse.jpg');
-  imgPaw = loadImage('./paw.png');
+  imgMouse = loadImage('./imgs/mouse.jpg');
+  imgPaw = loadImage('./imgs/paw.png');
+  cover2font = loadFont('./assets/Pigiarniq.ttf');
 }
 
 function setup() {
@@ -113,6 +106,62 @@ function catFace(r) {
 
   bezier((sqrt(2)/2 + 1.2)*r, noseH*1.3, (sqrt(2)/2 + 2)*r, 1.2*noseH, (sqrt(2)/2 + 2.5)*r, noseH*1.8, (sqrt(2)/2 + 3)*r, noseH*3);
   bezier(-(sqrt(2)/2 + 1.2)*r, noseH*1.3, -(sqrt(2)/2 + 2)*r, 1.2*noseH, -(sqrt(2)/2 + 2.5)*r, noseH*1.8, -(sqrt(2)/2 + 3)*r, noseH*3);
+}
+
+// Cover 2: Draw patterns
+// Tiger pattern
+function felineName(x) {
+  textAlign(CENTER, CENTER);
+  textSize(70);
+  textFont(cover2font);
+  fill(0);
+  stroke(0);
+  strokeWeight(1);
+  text(x, windowWidth/2, windowHeight-100);
+}
+function tigerStrip(x,y) {
+  beginShape();
+  vertex(x, 0); // x = -windowWidth/2, y = windowHeight/2
+  bezierVertex(x/2, 0, x/2, y, 0, y);
+  bezierVertex(x*2/3, y*4/3, x*2/3, y/3, x, y/3);
+  endShape();
+}
+function tigerPattern() {
+  background(216, 152, 72);
+  // Print feline name on canvas
+  felineName("Tiger");
+  // Draw tiger strips to form a pattern
+  push();
+  translate(windowWidth/2,0);
+  tigerStrip(-windowWidth/2, windowHeight/2);
+  translate(0,-windowHeight/2.5);
+  tigerStrip(-windowWidth/2, windowHeight/2);
+  pop();
+  
+  push();
+  translate(windowWidth/2,-windowHeight/3);
+  tigerStrip(windowWidth/2, windowHeight/2);
+  translate(0,windowHeight/2);
+  tigerStrip(windowWidth/2, windowHeight/2);
+  pop();
+
+  push();
+  translate(windowWidth/4, windowHeight/2);
+  tigerStrip(-windowWidth/4, windowHeight/4);
+  translate(windowWidth/2, windowHeight/4);
+  tigerStrip(windowWidth/4, windowHeight/4);
+  // beginShape();
+  // vertex(-windowWidth/2, 0);
+  // bezierVertex(windowWidth/8-windowWidth/2, 0, windowWidth/8-windowWidth/2, windowHeight/4, -windowWidth/4, windowHeight/4);
+  // bezierVertex(windowWidth/12-windowWidth/2, windowHeight/3, windowWidth/12-windowWidth/2, windowHeight/12, -windowWidth/2, windowHeight/12);
+  // endShape();
+  pop();
+}
+
+// Amur Leopard
+function leopardPattern() {
+  background(241,242,240);
+  felineName("Amur Leopard");
 }
 
 function drawBoundary() {
@@ -200,9 +249,12 @@ function drawCover1() {
 }
 
 function drawCover2() {
-  background(255);
+  
+  // tigerPattern();
+  leopardPattern();
+
   // Draw the yellow boundary
-  drawBoundary();
+  drawBoundary();  
 }
 
 function draw() {
