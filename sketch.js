@@ -1,3 +1,4 @@
+// ------ Variables ------
 // Variables for cover switching
 let coverIndex = 0;
 let numCovers = 3; 
@@ -7,7 +8,7 @@ let colorR = 255, colorG = 255, colorB = 255;
 let BGcolor = 0;
 
 // Variables for cover 1
-let imgMouse;
+let imgMouse, imgPaw;
 let r1; // radius of cat eyes
 let pupilLX, pupilRX, pupilY, pupilD, pupilLX0, pupilRX0, pupilY0;
 let drawPaw = false;
@@ -58,6 +59,7 @@ class leopardDot {
 let patternIndex = 0; // Store current pattern index
 let numPatterns = 2; // Need update if add more pattern later
 
+// ------ Preload and Setup ------
 function preload() {
   imgMouse = loadImage('./imgs/mouse.jpg'); // Mouse image for cover 1
   imgPaw = loadImage('./imgs/paw.png'); // Paw image for cover 1
@@ -81,7 +83,61 @@ function setup() {
   imgPaw.resize(r1*2,r1*2);
 }
 
-// Cover 1 Functions: Draw a cat with moving pupils
+// ------ Custom Functions ------
+// --- Cover 0 ---
+// Cat's eyes changing with time
+function drawCover0() {
+  h = hour();
+  m = minute();
+  s = second();
+
+  // Time controls colors on canvas
+  colorR = map(h, 0, 23, 255, 0); 
+  colorG = map(m, 0, 59, 255, 0); 
+  colorB = map(s, 0, 59, 255, 0); 
+  // Background change color based on hour
+  if (h<12) {
+    BGcolor = map(colorR, 0, 255, 510, 0);
+  } else {
+    BGcolor = map(colorR, 0, 255, 0, 510);
+  }
+  background(BGcolor);
+
+  // Draw the yellow boundary
+  drawBoundary();
+
+  // Pupil width change based on hour
+  let pupilWidthFactor;
+  if (h<12) {
+    pupilWidthFactor = map(h, 0, 11, 1, 0.2);
+  } else {
+    pupilWidthFactor = map(h, 12, 23, 0.2, 1);
+  }
+  
+  strokeWeight(5);
+  // Set stroke color
+  stroke(colorR,colorG,colorB);
+  // Fill the eye with the complementary color of the stroke's color
+  fill(255 - colorR, 255 - colorG, 255 - colorB, 125); 
+
+  // Translate the canvas
+  translate(windowWidth/2, windowHeight/2);
+  let r = windowWidth/5;
+
+  // Draw eye boundaries
+  arc(r, -sqrt(2)/2*r, 2*r, 2*r, PI/4, PI/4*3, OPEN);
+  arc(r, sqrt(2)/2*r, 2*r, 2*r, PI/4*5, PI/4*7, OPEN);
+  arc(-r, -sqrt(2)/2*r, 2*r, 2*r, PI/4, PI/4*3, OPEN);
+  arc(-r, sqrt(2)/2*r, 2*r, 2*r, PI/4*5, PI/4*7, OPEN);
+
+  // Draw pupils
+  fill(colorR,colorG,colorB, 255);
+  ellipse(r, 0, (2 - sqrt(2))*r*pupilWidthFactor, (2 - sqrt(2))*r);
+  ellipse(-r, 0, (2 - sqrt(2))*r*pupilWidthFactor, (2 - sqrt(2))*r); 
+}
+
+
+// --- Cover 1 ---
 // Function for moving pupils
 function drawPupils() {
   // Update the pupils' x-positions
@@ -142,9 +198,36 @@ function catFace(r) {
   bezier((sqrt(2)/2 + 1.2)*r, noseH*1.3, (sqrt(2)/2 + 2)*r, 1.2*noseH, (sqrt(2)/2 + 2.5)*r, noseH*1.8, (sqrt(2)/2 + 3)*r, noseH*3);
   bezier(-(sqrt(2)/2 + 1.2)*r, noseH*1.3, -(sqrt(2)/2 + 2)*r, 1.2*noseH, -(sqrt(2)/2 + 2.5)*r, noseH*1.8, -(sqrt(2)/2 + 3)*r, noseH*3);
 }
+// Cat's eyes moving with the mouse
+function drawCover1() {
+  background(255);
 
-// Cover 2: Draw patterns
-// Function for writing the animal name on canvas
+  // Draw cat face
+  push();
+  translate(windowWidth/2, windowHeight/2);
+  catFace(r1);
+  pop();
+
+  // Draw a paw upon mouse click
+  if (paws.length != 0) {
+    for (let i=0; i<paws.length; i++) {
+      if (paws[i].timer < 100) {
+        paws[i].draw();
+      }
+      paws[i].update();
+    }
+  }  
+  // Draw the yellow boundary
+  drawBoundary();
+
+  // Draw a mouse at the mouse position
+  imageMode(CENTER);
+  image(imgMouse, mouseX, mouseY);
+}
+
+
+// --- Cover 2 ---
+// Print animal name on canvas
 function felineName(x) {
   textAlign(CENTER, CENTER);
   textSize(70);
@@ -154,7 +237,7 @@ function felineName(x) {
   strokeWeight(1);
   text(x, windowWidth/2, windowHeight-100);
 }
-// Tiger pattern
+// Tiger strip
 function tigerStrip(x,y) {
   beginShape();
   vertex(x, 0); // x = -windowWidth/2, y = windowHeight/2
@@ -162,6 +245,7 @@ function tigerStrip(x,y) {
   bezierVertex(x*2/3, y*4/3, x*2/3, y/3, x, y/3);
   endShape();
 }
+// Tiger pattern, formed by multiple tiger strips
 function tigerPattern() {
   background(216, 152, 72);
   // Print feline name on canvas
@@ -193,7 +277,6 @@ function tigerPattern() {
   // endShape();
   pop();
 }
-
 // Amur leopard pattern
 function leopardPattern() {
   background(241,242,240);
@@ -233,93 +316,7 @@ function leopardPattern() {
 
   felineName("Amur Leopard");
 }
-
-// Draw the yellow boundary
-function drawBoundary() {
-  strokeWeight(80);
-  stroke(255, 206, 0);
-  noFill();
-  rect(0, 0, windowWidth, windowHeight);
-}
-// Cover 0: Cat's eyes changing with time
-function drawCover0() {
-  h = hour();
-  m = minute();
-  s = second();
-
-  // Time controls colors on canvas
-  colorR = map(h, 0, 23, 255, 0); 
-  colorG = map(m, 0, 59, 255, 0); 
-  colorB = map(s, 0, 59, 255, 0); 
-  // Background change color based on hour
-  if (h<12) {
-    BGcolor = map(colorR, 0, 255, 510, 0);
-  } else {
-    BGcolor = map(colorR, 0, 255, 0, 510);
-  }
-  background(BGcolor);
-
-  // Draw the yellow boundary
-  drawBoundary();
-
-  // Pupil width change based on hour
-  let pupilWidthFactor;
-  if (h<12) {
-    pupilWidthFactor = map(h, 0, 11, 1, 0.2);
-  } else {
-    pupilWidthFactor = map(h, 12, 23, 0.2, 1);
-  }
-  
-  strokeWeight(5);
-  // Set stroke color
-  stroke(colorR,colorG,colorB);
-  // Fill the eye with the complementary color of the stroke's color
-  fill(255 - colorR, 255 - colorG, 255 - colorB, 125); 
-
-  // Translate the canvas
-  translate(windowWidth/2, windowHeight/2);
-  let r = windowWidth/5;
-
-  // Draw eye boundaries
-  arc(r, -sqrt(2)/2*r, 2*r, 2*r, PI/4, PI/4*3, OPEN);
-  arc(r, sqrt(2)/2*r, 2*r, 2*r, PI/4*5, PI/4*7, OPEN);
-  arc(-r, -sqrt(2)/2*r, 2*r, 2*r, PI/4, PI/4*3, OPEN);
-  arc(-r, sqrt(2)/2*r, 2*r, 2*r, PI/4*5, PI/4*7, OPEN);
-
-  // Draw pupils
-  fill(colorR,colorG,colorB, 255);
-  ellipse(r, 0, (2 - sqrt(2))*r*pupilWidthFactor, (2 - sqrt(2))*r);
-  ellipse(-r, 0, (2 - sqrt(2))*r*pupilWidthFactor, (2 - sqrt(2))*r); 
-}
-
-// Cover 1: Cat's eyes moving with the mouse
-function drawCover1() {
-  background(255);
-    
-  // Draw cat face
-  push();
-  translate(windowWidth/2, windowHeight/2);
-  catFace(r1);
-  pop();
-
-  // Draw a paw upon mouse click
-  if (paws.length != 0) {
-    for (let i=0; i<paws.length; i++) {
-      if (paws[i].timer < 100) {
-        paws[i].draw();
-      }
-      paws[i].update();
-    }
-  }  
-  // Draw the yellow boundary
-  drawBoundary();
-
-  // Draw a mouse at the mouse position
-  imageMode(CENTER);
-  image(imgMouse, mouseX, mouseY);
-}
-
-// Cover 2: Different feline animals' fur patterns
+// Different feline animals' fur patterns
 function drawCover2() {
   switch (patternIndex) {
     case 0: 
@@ -333,6 +330,16 @@ function drawCover2() {
   drawBoundary();  
 }
 
+
+// --- Yellow Boundary ---
+function drawBoundary() {
+  strokeWeight(80);
+  stroke(255, 206, 0);
+  noFill();
+  rect(0, 0, windowWidth, windowHeight);
+}
+
+// ------ Draw ------
 function draw() {
   switch (coverIndex) {
     case 0: 
@@ -348,6 +355,7 @@ function draw() {
 
 }
 
+// ------ Handle keyPressed and mouseClicked ------
 // Press left arrow key or right arrow key to change cover
 function keyPressed() {
   // If left arrow key is pressed, go to previous cover in the cover list
