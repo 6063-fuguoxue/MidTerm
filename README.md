@@ -3,7 +3,7 @@
 ### Magazine: The Secret Life of Cats by National Geographic
 I recently bought a magazine named "The Secret Life of Cats". It is a reissue of a national geographic favorite, which contains many beautiful photos of cats and interesting stories. It consists of three chapters: "Cats Then and Now", "The Human-Cat Bond", and "Cats in Our History". "Cats" in this magazine refer not only to domestic cats, but the whole Felidae family including tigers, panthers, and so on. Since I love cats, and there are many classic and understandable symbolic languages in human culture that refer to felines, I decided to design a cover for this magazine. 
 
-<img src="./original-cover.jpg" alt="Original Magazine Cover" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+<img src="./imgs/original-cover.jpg" alt="Original Magazine Cover" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
 
 ### Planning
 The cover will include the biological characteristics of the cats, such as their eyes, the patterns of their furs, their paws, their tails, and so on. It can also include things related to cats like catnip and fish. If appropriate, I will also include some human elements to showcase the human-cat bond. 
@@ -25,10 +25,10 @@ From the perspective of interactivity, my project is related to our week 04 read
 Below are some sketches of the cover: 
 <table>
   <tr>
-    <td><img src="./sketch1.jpg" alt="sketch1"></td>
-    <td><img src="./sketch2.jpg" alt="sketch2"></td>
-    <td><img src="./sketch3.jpg" alt="sketch3"></td>
-    <td><img src="./sketch4.jpg" alt="sketch4"></td>
+    <td><img src="./imgs/sketch1.jpg" alt="sketch1"></td>
+    <td><img src="./imgs/sketch2.jpg" alt="sketch2"></td>
+    <td><img src="./imgs/sketch3.jpg" alt="sketch3"></td>
+    <td><img src="./imgs/sketch4.jpg" alt="sketch4"></td>
   </tr>
   <tr>
     <td>Plan 1: Mouse interaction with the cat on the cover </td>
@@ -54,10 +54,10 @@ As for the eyes, each eye consists of two arcs and one ellipse. The angles of th
 
 Below is my sketch for eye and pupil position calculation. 
 
-![Eye and pupil position calculation](./eye-pupil-calculation.jpg)
+![Eye and pupil position calculation](./imgs/eye-pupil-calculation.jpg)
 
 Below is a screenshot of Cover 0.
-![Cover 0](./cover0.png)
+![Cover 0](./imgs/cover0.png)
 
 ### Cover 1
 Cover 1 will have a cat responding to the mouse movement and mouse clicks. The cat's eyes will follow the mouse's movement, and a cat paw will appear where the mouse click happens. So far, I have created a mouse image and let it move with the digital mouse on canvas. The image is loaded in the 'preload()' function. 
@@ -67,7 +67,7 @@ For the next step, I will draw a cat on the canvas and animate its pupils. For e
 Another thing I will implement is the mouse-clicking event. When the mouse is clicked, `mouseClicked()` checks if the current `coverIndex` is 1; if so, draw a paw at the clicked position. There can be a global counter so that we can let the paw image remain on canvas for a few seconds or frames. 
 
 Below is a screenshot of the Cover 1 (to be continued).
-![Cover 1](./cover1.png)
+![Cover 1](./imgs/cover1.png)
 
 ### Cover 2
 Cover 2 shows different cat fur patterns with a mouse click. This is an easy interaction: I just need the function `mouseClicked()`, and check if the current `coverIndex` is 2; if so, go to the next cat fur pattern in the pattern series. 
