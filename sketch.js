@@ -1,7 +1,10 @@
-let colorR = 255, colorG = 255, colorB = 255;
-let BGcolor = 0;
+// Variables for cover switching
 let coverIndex = 0;
 let numCovers = 3; 
+
+// Variables for cover 0
+let colorR = 255, colorG = 255, colorB = 255;
+let BGcolor = 0;
 
 // Variables for cover 1
 let imgMouse;
@@ -12,7 +15,6 @@ let pawTimer;
 let pawX, pawY;
 let paw;
 let paws=[];
-
 class Paw {
   constructor(_img, _x, _y) {
     this.img = _img; 
@@ -28,19 +30,45 @@ class Paw {
   }
 }
 
+// Variables for cover 2
+let numDots = 6000; // Define number of dot proposals
+let dots = []; // Store non-overlapping dots
+// Class of leopard dots
+class leopardDot {
+  constructor() {
+    this.x = random(windowWidth);
+    this.y = random(windowHeight);
+    this.w = int(random(20,150));
+    this.h = int(random(20,150));
+    this.weight = random(10,20);
+    this.start = 0;
+    this.stop = random(PI,2*PI);
+    this.overlapping = false;
+    this.rotateAngle = random(0,2*PI);
+  }
+  draw() {
+    push();
+    translate(this.x, this.y);
+    rotate(this.rotateAngle);
+    strokeWeight(this.weight);
+    arc(0, 0, this.w, this.h, this.start, this.stop);
+    pop();
+  }
+}
+let patternIndex = 0; // Store current pattern index
+let numPatterns = 2; // Need update if add more pattern later
+
 function preload() {
-  imgMouse = loadImage('./imgs/mouse.jpg');
-  imgPaw = loadImage('./imgs/paw.png');
-  cover2font = loadFont('./assets/Pigiarniq.ttf');
+  imgMouse = loadImage('./imgs/mouse.jpg'); // Mouse image for cover 1
+  imgPaw = loadImage('./imgs/paw.png'); // Paw image for cover 1
+  cover2font = loadFont('./assets/Pigiarniq.ttf'); // Font for cover 2
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  imgMouse.resize(windowHeight/8,windowHeight/8);
-  imgPaw.resize(windowHeight/10,windowHeight/10);
 
-  // Set up variable for cover 1
-  r1 = windowWidth/40;
+  // Initialize variables for cover 1
+  r1 = windowWidth/20; // Change r1 to resize the cat face
   pupilD = (2 - sqrt(2))*r1;
   pupilRX0 = r1;
   pupilRX = pupilRX0;
@@ -48,8 +76,13 @@ function setup() {
   pupilLX = pupilLX0;
   pupilY0 = 0;
   pupilY = pupilY0;
+  // Resize images for cover 1
+  imgMouse.resize(r1*1.5,r1*1.5);
+  imgPaw.resize(r1*2,r1*2);
 }
 
+// Cover 1 Functions: Draw a cat with moving pupils
+// Function for moving pupils
 function drawPupils() {
   // Update the pupils' x-positions
   pupilRX = map(mouseX, 0, windowWidth, pupilRX0-pupilD/2, pupilRX0+pupilD/2);
@@ -58,19 +91,21 @@ function drawPupils() {
   // Update the pupils' y-positions
   pupilY = map(mouseY, 0, windowHeight, pupilY0-pupilD/2, pupilY0+pupilD/2);
 
+  // Draw pupils
   ellipse(pupilRX, pupilY, pupilD);
   ellipse(pupilLX, pupilY, pupilD);
 }
-
+// Function for drawing cat face
 function catFace(r) {
   let noseH = r*0.6;
   let earH1 = 1.3*r;
   let earH2 = 2.3*r;
   let earH3 = r;
 
-  // Draw eye boundaries
+  
   strokeWeight(3);
   stroke(0);
+  // Draw eye boundaries
   // noFill();
   // arc(r, -sqrt(2)/2*r, 2*r, 2*r, PI/4, PI/4*3, OPEN);
   // arc(r, sqrt(2)/2*r, 2*r, 2*r, PI/4*5, PI/4*7, OPEN);
@@ -109,7 +144,7 @@ function catFace(r) {
 }
 
 // Cover 2: Draw patterns
-// Tiger pattern
+// Function for writing the animal name on canvas
 function felineName(x) {
   textAlign(CENTER, CENTER);
   textSize(70);
@@ -119,6 +154,7 @@ function felineName(x) {
   strokeWeight(1);
   text(x, windowWidth/2, windowHeight-100);
 }
+// Tiger pattern
 function tigerStrip(x,y) {
   beginShape();
   vertex(x, 0); // x = -windowWidth/2, y = windowHeight/2
@@ -158,14 +194,48 @@ function tigerPattern() {
   pop();
 }
 
-// Amur Leopard
+// Amur leopard pattern
 function leopardPattern() {
   background(241,242,240);
+
+  // Draw leopard dots
+  stroke(144,104,72,180);
+  // strokeWeight(10);
+  noFill();
+  randomSeed(1100);
+
+  for (let n=0; n<numDots; n++) { // Get n number of dot proposals
+    // generate a dot at random position
+    let dot = new leopardDot;
+    // If this is not the first dot, we need to check it against each of the previous circles
+    if (dots.length != 0){ 
+      for (let i=0; i<dots.length; i++) {
+        // Get a previous circle from the list
+        prevDot = dots[i]; 
+        // Get the distance between the current and previous dots
+        let d = dist(dot.x, dot.y, prevDot.x, prevDot.y);
+        if (d < (max(dot.w, dot.h) + max(prevDot.w, prevDot.h))) {
+          dot.overlapping = true;
+          break;
+        }
+      }
+    }
+    // If no overlapping after checking, then draw the circle and add it to the list
+    if (!dot.overlapping) {
+        dots.push(dot);
+    }
+  }
+  
+  for (let m=0; m<dots.length; m++){
+    dots[m].draw();
+  }
+  print("Number of dots: ", dots.length);
+
   felineName("Amur Leopard");
 }
 
+// Draw the yellow boundary
 function drawBoundary() {
-  // Draw the yellow boundary
   strokeWeight(80);
   stroke(255, 206, 0);
   noFill();
@@ -225,12 +295,7 @@ function drawCover0() {
 // Cover 1: Cat's eyes moving with the mouse
 function drawCover1() {
   background(255);
-  
-  imageMode(CENTER);
-  image(imgMouse, mouseX, mouseY);
-  // Draw the yellow boundary
-  drawBoundary();
-
+    
   // Draw cat face
   push();
   translate(windowWidth/2, windowHeight/2);
@@ -246,25 +311,39 @@ function drawCover1() {
       paws[i].update();
     }
   }  
+  // Draw the yellow boundary
+  drawBoundary();
+
+  // Draw a mouse at the mouse position
+  imageMode(CENTER);
+  image(imgMouse, mouseX, mouseY);
 }
 
+// Cover 2: Different feline animals' fur patterns
 function drawCover2() {
-  
-  // tigerPattern();
-  leopardPattern();
-
+  switch (patternIndex) {
+    case 0: 
+      tigerPattern();
+      break;
+    case 1: 
+      leopardPattern();
+      break;
+  }
   // Draw the yellow boundary
   drawBoundary();  
 }
 
 function draw() {
-  if (coverIndex == 0) {
-    drawCover0();
-  }
-  else if (coverIndex == 1){
-    drawCover1();
-  } else if (coverIndex == 2) {
-    drawCover2();
+  switch (coverIndex) {
+    case 0: 
+      drawCover0();
+      break;
+    case 1: 
+      drawCover1();
+      break;
+    case 2: 
+      drawCover2();
+      break;
   }
 
 }
@@ -287,20 +366,27 @@ function keyPressed() {
       coverIndex = 0;
     }   
   }
-  print(coverIndex);
+  // print(coverIndex);
 }
 
+// Handle mouse click events
 function mouseClicked() {
-  if (coverIndex == 0) {
-    // Do nothing
-  }
-  else if (coverIndex == 1){
-    // Push a paw to the paws[] list
-    pawX = mouseX;
-    pawY = mouseY;
-    paw = new Paw(imgPaw, pawX, pawY);
-    paws.push(paw);
-  } else if (coverIndex == 2) {
-    // Change pattern
+  switch (coverIndex) {
+    case 0: break; // Do nothing
+    case 1: 
+      // Push a paw to the paws[] list
+      pawX = mouseX;
+      pawY = mouseY;
+      paw = new Paw(imgPaw, pawX, pawY);
+      paws.push(paw);
+      break;
+    case 2: 
+      // Change pattern
+      if (patternIndex < numPatterns - 1) {
+        patternIndex += 1;
+      } else {
+        patternIndex = 0;
+      }
+      break;
   }
 }
