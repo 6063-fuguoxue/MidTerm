@@ -85,8 +85,29 @@ Cover 0 remains the same as updated in Milestone 2. There is no interactive elem
 
 The code for cover 0 is in `function drawCover0()`. 
 
+<table>
+  <tr>
+    <td><img src="./imgs/cover0-0.png" alt="cover0-0"></td>
+    <td><img src="./imgs/cover0-8.png" alt="cover0-8"></td>
+  </tr>
+  <tr>
+    <td>Cover at 0 AM</td>
+    <td>Cover at 8 AM</td>
+  </tr>
+  <tr>
+    <td><img src="./imgs/cover0-12.png" alt="cover0-12"></td>
+    <td><img src="./imgs/cover0-23.png" alt="cover0-23"></td>
+  </tr>
+  <tr>
+    <td>Cover at 12 PM</td>
+    <td>Cover at 23 PM</td>
+  </tr>
+</table>
+
 ### Cover 1: Interactive Digital Cat
 Cover 1 is a cat that interacts with the viewer's mouse. The cat's pupils follow the mouse movement; if click the mouse, the cat will try to "catch" the mouse with its paw. 
+
+![Interactive Cat](./imgs/cover1.gif)
 
 I broke down the interactions into several parts with explanations below.
 
@@ -120,6 +141,7 @@ The mouse image and the paw image are drawn by myself.
 The last cover I developed is the feline fur patterns. This cover provides several patterns of feline animals for the viewer to choose from by clicking on the canvas. 
 
 #### Pattern 1: Tiger
+![Tiger Pattern](./imgs/cover2-tiger.png)
 Tiger pattern is more difficult to reproduce through programming because they consist of shapes with curvy outlines. Upon searching on custom shape creation, I found [this webpage](https://programmingdesignsystems.com/shape/custom-shapes/index.html) with interactive curve drawing canvases. I learned that the function set of `beginShape()`, `vertex()`, `bezierVertex()`, and `endShape` could solve my problem. There are other curve functions like `quadraticVertex()`, too, but I think Bézier curves are what I need for tiger strips. 
 
 However, it was not easy to shape the curves. I finally found a [Bezier curve generator](https://www.desmos.com/calculator/cahqdxeshd) to try out different point positions to define a Bezier curve, and I did find a set of rules to follow to create the curve shape I wanted. The rules are: let y0 = y1, x1 = x2, y2 = y3, (x1 - x0) = (x3 - x2). Below is a screenshot of the curve shape by following these rules. 
@@ -128,6 +150,7 @@ However, it was not easy to shape the curves. I finally found a [Bezier curve ge
 Then, I applied the rules to create a single tiger strip. This is achieved by `function tigerStrip(x,y)` and `function tigerPattern()`. The final pattern has its size related to the window size. 
 
 #### Pattern 2: Amur Leopard
+![Amur Leopard Pattern](./imgs/cover2-amur-leopard.png)
 Amur Leopard pattern is easier to create because I could refer to the HW03B code. The high-level logic is to create non-overlapping "dots". However, different from HW03B code, this time I created the `class LeopardDot` with all the properties and functions that a single leopard dot needs to be shown on the canvas. Moreover, the dots are not circles but arcs to better imitate Amur Leopard's fur pattern. Each arc is rotated at a random angle ranging from 0 to 2*PI radians so that the arc gaps are facing in different directions. 
 
 #### Function: change pattern upon a mouse click
