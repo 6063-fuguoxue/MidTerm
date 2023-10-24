@@ -128,5 +128,6 @@ However, it was not easy to shape the curves. I finally found a [Bezier curve ge
 Then, I applied the rules to create a single tiger strip. This is achieved by `function tigerStrip(x,y)` and `function tigerPattern()`. The final pattern has its size related to the window size. 
 
 #### Pattern 2: Amur Leopard
+Amur Leopard pattern is easier to create because I could refer to the HW03B code. The high-level logic is to create non-overlapping "dots". However, different from HW03B code, this time I created the `class LeopardDot` with all the properties and functions that a single leopard dot needs to be shown on the canvas. Moreover, the dots are not circles but arcs to better imitate Amur Leopard's fur pattern. Each arc is rotated at a random angle ranging from 0 to 2*PI radians so that the arc gaps are facing in different directions. 
 
 #### Function: change pattern upon mouse click
