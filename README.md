@@ -98,8 +98,23 @@ Then, `r1` is passed to `function catFace(r)`. This function draws everything on
 However, drawing beards took me a long time to finish. I referred to [this tutorial](https://p5js.org/learn/curves.html) to draw curved lines. Initially, I decided not to use `arc` because cat beards are not exactly in arc shapes. Then, I chose to use `curve()` for beards but soon found it not intuitive enough for me to control. Finally, I chose `bezier()`, which provides the most intuitive curve control among the three. As mentioned previously, the position and curve control of every bezier curve are related to `r1`. 
 
 #### Function 1: Pupil movement
+Pupil movement is achieved by `function drawPupils()`. Initially, I sectioned the x-axis into 3 parts: left to the left eye, between two eyes, and right to the right eye. However, it became rather messy when converting this plan into code. 
+
+After several rounds of modifications to the function, I suddenly realized that this was a simple mapping problem: I could simply map the window size to the range of movement of the two eyes. Therefore, I used `map()` for the x and y positions of the eyes. 
 
 #### Function 2: Show a paw at the clicking position
+This function is achieved by `function mouseClicked()`. When `coverIndex` is 1, `pawX` and `pawY` are set to the current `mouseX` and `mouseY`. Then, a new instance of `class Paw` is created and pushed to the `paws` list. 
+
+Inside `function drawCover1()`, only the paw instances that have `timer` property of less than 100 will be drawn on the canvas. Then, each paw instance's  `timer` property is updated (increased by 1, as coded in `class Paw`). This process makes sure that only a few new paws are drawn. 
+
+The mouse image and the paw image are drawn by myself. 
+
+<table>
+  <tr>
+    <td><img src="./imgs/mouse.jpg" alt="mouse"></td>
+    <td><img src="./imgs/paw.png" alt="paw"></td>
+  </tr>
+</table>
 
 ### Cover 2: Feline Fur Patterns
 
