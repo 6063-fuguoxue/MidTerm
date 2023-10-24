@@ -35,7 +35,7 @@ class Paw {
 let numDots = 6000; // Define number of dot proposals
 let dots = []; // Store non-overlapping dots
 // Class of leopard dots
-class leopardDot {
+class LeopardDot {
   constructor() {
     this.x = random(windowWidth);
     this.y = random(windowHeight);
@@ -289,7 +289,7 @@ function leopardPattern() {
 
   for (let n=0; n<numDots; n++) { // Get n number of dot proposals
     // generate a dot at random position
-    let dot = new leopardDot;
+    let dot = new LeopardDot;
     // If this is not the first dot, we need to check it against each of the previous circles
     if (dots.length != 0){ 
       for (let i=0; i<dots.length; i++) {
