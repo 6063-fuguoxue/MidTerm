@@ -77,7 +77,7 @@ Pattern production may be difficult because I will need to code the patterns out
 ## Milestone 3: Project Finished
 This week, I finished the midterm project. Below is a summary of my project. 
 
-### Function: Cover Switching
+### Function: cover switching
 As updated in Milestone 2, the viewer can switch between 3 cover themes I created. This is achieved by `function keyPressed()`. 
 
 ### Cover 0: Cat Clock
@@ -90,19 +90,19 @@ Cover 1 is a cat that interacts with the viewer's mouse. The cat's pupils follow
 
 I broke down the interactions into several parts with explanations below.
 
-#### Part 1: Cat face drawing
+#### Cat face drawing
 Drawing a cat's face is more difficult than just drawing geometric shapes because everything should be positioned and proportioned to look harmonious and recognizable as a cat face. Therefore, I defined the `r1` variable in `setup()` as `windowWidth/20`, which is the distance between the canvas center and the initial center of a cat pupil. Almost all the variables of Cover 1 are related to r1, which allows easy management of shape positions and sizes. 
 
 Then, `r1` is passed to `function catFace(r)`. This function draws everything on the cat face: pupils, nose, ears, and beards. Pupils drawing will be explained in the next subsection. Nose and ears drawing are relatively easy because they are formed by basic shapes. 
 
 However, drawing beards took me a long time to finish. I referred to [this tutorial](https://p5js.org/learn/curves.html) to draw curved lines. Initially, I decided not to use `arc` because cat beards are not exactly in arc shapes. Then, I chose to use `curve()` for beards but soon found it not intuitive enough for me to control. Finally, I chose `bezier()`, which provides the most intuitive curve control among the three. As mentioned previously, the position and curve control of every bezier curve are related to `r1`. 
 
-#### Function 1: Pupil movement
+#### Function 1: pupil movement
 Pupil movement is achieved by `function drawPupils()`. Initially, I sectioned the x-axis into 3 parts: left to the left eye, between two eyes, and right to the right eye. However, it became rather messy when converting this plan into code. 
 
 After several rounds of modifications to the function, I suddenly realized that this was a simple mapping problem: I could simply map the window size to the range of movement of the two eyes. Therefore, I used `map()` for the x and y positions of the eyes. 
 
-#### Function 2: Show a paw at the clicking position
+#### Function 2: show a paw at the clicking position
 This function is achieved by `function mouseClicked()`. When `coverIndex` is 1, `pawX` and `pawY` are set to the current `mouseX` and `mouseY`. Then, a new instance of `class Paw` is created and pushed to the `paws` list. 
 
 Inside `function drawCover1()`, only the paw instances that have `timer` property of less than 100 will be drawn on the canvas. Then, each paw instance's  `timer` property is updated (increased by 1, as coded in `class Paw`). This process makes sure that only a few new paws are drawn. 
@@ -117,4 +117,16 @@ The mouse image and the paw image are drawn by myself.
 </table>
 
 ### Cover 2: Feline Fur Patterns
+The last cover I developed is the feline fur patterns. This cover provides several patterns of feline animals for the viewer to choose from by clicking on the canvas. 
 
+#### Pattern 1: Tiger
+Tiger pattern is more difficult to reproduce through programming because they consist of shapes with curvy outlines. Upon searching on custom shape creation, I found [this webpage](https://programmingdesignsystems.com/shape/custom-shapes/index.html) with interactive curve drawing canvases. I learned that the function set of `beginShape()`, `vertex()`, `bezierVertex()`, and `endShape` could solve my problem. There are other curve functions like `quadraticVertex()`, too, but I think Bézier curves are what I need for tiger strips. 
+
+However, it was not easy to shape the curves. I finally found a [Bezier curve generator](https://www.desmos.com/calculator/cahqdxeshd) to try out different point positions to define a Bezier curve, and I did find a set of rules to follow to create the curve shape I wanted. The rules are: let y0 = y1, x1 = x2, y2 = y3, (x1 - x0) = (x3 - x2). Below is a screenshot of the curve shape by following these rules. 
+![Bezier curve](./imgs/bezier.png)
+
+Then, I applied the rules to create a single tiger strip. This is achieved by `function tigerStrip(x,y)` and `function tigerPattern()`. The final pattern has its size related to the window size. 
+
+#### Pattern 2: Amur Leopard
+
+#### Function: change pattern upon mouse click
