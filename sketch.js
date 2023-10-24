@@ -240,7 +240,7 @@ function felineName(x) {
 // Tiger strip
 function tigerStrip(x,y) {
   beginShape();
-  vertex(x, 0); // x = -windowWidth/2, y = windowHeight/2
+  vertex(x, 0);
   bezierVertex(x/2, 0, x/2, y, 0, y);
   bezierVertex(x*2/3, y*4/3, x*2/3, y/3, x, y/3);
   endShape();
