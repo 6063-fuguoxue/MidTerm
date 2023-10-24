@@ -130,4 +130,5 @@ Then, I applied the rules to create a single tiger strip. This is achieved by `f
 #### Pattern 2: Amur Leopard
 Amur Leopard pattern is easier to create because I could refer to the HW03B code. The high-level logic is to create non-overlapping "dots". However, different from HW03B code, this time I created the `class LeopardDot` with all the properties and functions that a single leopard dot needs to be shown on the canvas. Moreover, the dots are not circles but arcs to better imitate Amur Leopard's fur pattern. Each arc is rotated at a random angle ranging from 0 to 2*PI radians so that the arc gaps are facing in different directions. 
 
-#### Function: change pattern upon mouse click
+#### Function: change pattern upon a mouse click
+This is the last function introduced in this file. To achieve the function of changing pattern upon a mouse click, the `function mouseClicked()` first checks if `coverIndex` is 2. If so, the pattern will change to the next one in the pattern series. Currently, there are only two patterns in my project, but it is easy to add more patterns to the pattern series in the future. 
